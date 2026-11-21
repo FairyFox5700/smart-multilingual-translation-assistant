@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Multilingual Translation Assistant</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>🌐 Smart Multilingual Translation Assistant</h1>
+    <p class="subtitle">Powered by Azure AI Translator — translate, transliterate, and compare NMT vs. LLM output.</p>
+    <div id="healthBadge" class="badge">checking status…</div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Translate</h2>
+      <label for="text">Text</label>
+      <textarea id="text" rows="4" placeholder="Microsoft Azure AI helps businesses build intelligent applications.">Microsoft Azure AI helps businesses build intelligent applications.</textarea>
+
+      <div class="row">
+        <div class="field">
+          <label for="sourceLang">Source language (blank = auto-detect)</label>
+          <select id="sourceLang"><option value="">Auto-detect</option></select>
+        </div>
+        <div class="field">
+          <label>Target languages</label>
+          <div id="targetLangs" class="chip-list"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="profanityAction">Profanity action</label>
+          <select id="profanityAction">
+            <option value="NoAction">No action</option>
+            <option value="Marked">Marked</option>
+            <option value="Deleted">Deleted</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="engine">Engine</label>
+          <select id="engine">
+            <option value="nmt">Standard NMT</option>
+            <option value="llm">LLM (Foundry — tone/gender/adaptive)</option>
+          </select>
+        </div>
+      </div>
+
+      <details>
+        <summary>Advanced: dynamic dictionary, prevent translation, tone/gender, adaptive references</summary>
+        <div class="row">
+          <div class="field">
+            <label for="noTranslate">Prevent translation (comma-separated terms, e.g. Microsoft Azure, Copilot)</label>
+            <input id="noTranslate" type="text" placeholder="Microsoft Azure, Copilot" />
+          </div>
+          <div class="field">
+            <label for="dynamicDict">Dynamic dictionary (one per line: source=forced translation)</label>
+            <input id="dynamicDict" type="text" placeholder="cloud solution=solución en la nube" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="tone">Tone (LLM only)</label>
+            <select id="tone">
+              <option value="">—</option>
+              <option value="formal">Formal</option>
+              <option value="informal">Informal</option>
+              <option value="neutral">Neutral</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gender">Gender phrasing (LLM only)</label>
+            <select id="gender">
+              <option value="">—</option>
+              <option value="feminine">Feminine</option>
+              <option value="masculine">Masculine</option>
+              <option value="neutral">Neutral</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <button id="translateBtn">Translate</button>
+      <div id="translateResult" class="result"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Transliterate <span class="hint">(script conversion, not translation)</span></h2>
+      <div class="row">
+        <div class="field">
+          <label for="translitText">Text</label>
+          <input id="translitText" type="text" value="Привіт, як справи?" />
+        </div>
+        <div class="field">
+          <label for="translitLang">Language</label>
+          <select id="translitLang"></select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="fromScript">From script</label>
+          <select id="fromScript"></select>
+        </div>
+        <div class="field">
+          <label for="toScript">To script</label>
+          <select id="toScript"></select>
+        </div>
+      </div>
+      <button id="translitBtn">Transliterate</button>
+      <div id="translitResult" class="result"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>v3.0 GA API · <a href="/docs" target="_blank">OpenAPI docs</a></p>
+  </footer>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
